@@ -82,13 +82,10 @@ function diagonalWinCheck() {
 }
 
 function gameEnd(winningPlayer) {
-    for (var col = 0; col < 7; col++) {
-        for (var row = 0; row < 6; row++) {
-            $('h3').fadeOut('fast');
-            $('h2').fadeOut('fast');
-            $('h1').text(winningPlayer + " has won! Refresh your browser to play again!").css("font-size", "50px");
-        }
-    }
+    $('h2, h3').hide();
+    var playerColor = (winningPlayer === player1) ? player1color : player2color;
+    $('h1').html('<span style="color: ' + playerColor + '">' + winningPlayer + '</span> has won!<br>Refresh your browser to play again!').css("font-size", "50px");
+    game_on = false;
 }
 
 var currentPlayer = 1;
@@ -105,7 +102,6 @@ $('.board button').on('click', function() {
 
         if (horizontalWinCheck() || verticalWinCheck() || diagonalWinCheck()) {
             gameEnd(currentName);
-            game_on = false;
         }
 
         currentPlayer = currentPlayer * -1;
